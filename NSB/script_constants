@@ -1,0 +1,194 @@
+#===================================================================================================
+#
+#         FILE:  script_constants
+#
+#  DESCRIPTION:  Script holds Common Global Constants referered in all the modules and programs
+#			source in main program of all the utilities given by Wipro Automation team.
+#
+#       AUTHOR:  GIS Automation Team
+#      COMPANY:  Wipro Technologies
+#      VERSION:  1.0
+#      CREATED:  10/28/2012
+#     REVISION:  ---
+#===================================================================================================
+
+OS=`uname`                                                              ; export OS
+HOSTNAME=`uname -n`                                                     ; export HOSTNAME
+
+
+case "${OS}" in
+        SunOS)
+                PATH="/usr/xpg4/bin:/bin:/usr/bin:/sbin:/usr/sbin:${PATH}"                      ; export PATH
+        ;;
+        *)
+                PATH="/bin:/usr/bin:/sbin:/usr/sbin:${PATH}"                                    ; export PATH
+        ;;
+esac
+
+
+###################################################################################################
+#
+#       OS specific commands path
+#
+###################################################################################################
+
+case $OS  in
+
+############################  LINUX SPECIFIC COMMANDS ###########################
+
+Linux)
+
+        ECHO_CMD="echo -e"                                                           ; export ECHO_CMD
+        TR_CMD="tr 'a-z' 'A-Z'"                                                      ; export TR_CMD
+        EXCLUDE="^Filesystem|/boot|^tmpfs|/etc/mnttab|/dev/fd|/devices|/proc"        ; export EXCLUDE
+        DF_CMD="df -Ph"                                                              ; export DF_CMD
+        POWERMT_CMD="powermt"                                                        ; export POWERMT_CMD
+        NTPQ_CMD="/usr/sbin/ntpq"                                                    ; export NTPQ_CMD
+
+;;
+
+HP-UX)
+
+        ECHO_CMD="echo"                                                 ; export ECHO_CMD
+        MACHINFO_CMD="/usr/contrib/bin/machinfo"                        ; export MACHINFO_CMD
+        PRINT_MANIFEST_CMD="/opt/ignite/bin/print_manifest"             ; export PRINT_MANIFEST_CMD
+        DF_CMD="bdf"                                                    ; export DF_CMD
+        BDF_CMD="bdf"                                                   ; export BDF_CMD
+        EXCLUDE="^Filesystem|/boot|^tmpfs"                              ; export EXCLUDE
+        TR_CMD="tr 'a-z' 'A-Z'"                                         ; export TR_CMD
+        POWERMT_CMD="powermt"                                           ; export POWERMT_CMD
+        GLANCE_CMD="/opt/perf/bin/glance"                               ; export GLANCE_CMD
+        FCMSUTIL_CMD="/opt/fcms/bin/fcmsutil"                           ; export FCMSUTIL_CMD
+        NTPQ_CMD="/usr/sbin/ntpq"                                       ; export NTPQ_CMD
+
+;;
+
+AIX)
+
+        ECHO_CMD="echo"                                                 ; export ECHO_CMD
+        EXCLUDE="^Filesystem|^/proc"                                    ; export EXCLUDE
+        DF_CMD="df -Pk"                                                 ; export DF_CMD
+        POWERMT_CMD="powermt"                                           ; export POWERMT_CMD
+        TR_CMD="tr 'a-z' 'A-Z'"                                         ; export TR_CMD
+
+;;
+
+SunOS)
+
+        ECHO_CMD="echo"                                                                   ; export ECHO_CMD
+        EXCLUDE="^Filesystem|^swap|^/devices|^ctfs|^objfs|^fd|^/dev/odm|^proc|^mnttab"    ; export EXCLUDE
+        DF_CMD="df -k"                                                                    ; export DF_CMD
+        POWERMT_CMD="/etc/powermt"                                                        ; export POWERMT_CMD
+        TR_CMD="tr '[:lower:]' '[:upper:]'"                                               ; export TR_CMD
+        NTPQ_CMD="/usr/sbin/ntpq"                                                         ; export NTPQ_CMD
+	      LLTSTAT_CMD="/opt/VRTS/bin/lltstat"                                               ; export LLSTAT_CMD
+	      HASTATUS_CMD="/opt/VRTSvcs/bin/hastatus"                                          ; export HASTATUS_CMD
+	      GABCONFIG_CMD="/opt/VRTS/bin/gabconfig"                                           ; export GABCONFIG_CMD
+
+;;
+esac
+
+
+##################################################################################
+#
+#
+# Common configuration file across UNIX systems
+#
+#
+###################################################################################################
+
+ETC_HOSTS="/etc/hosts"                                                  ; export ETC_HOSTS
+CRON_DIR="/var/spool/cron/"                                             ; export CRON_DIR
+USER_FILE="/etc/passwd"                                                 ; export USER_FILE
+GROUP_FILE="/etc/group"                                                 ; export GROUP_FILE
+ETC_PROFILE="/etc/profile"                                              ; export ETC_PROFILE #need to modify
+SUDOERS_FILE="/etc/sudoers"                                             ; export SUDOERS_FILE
+
+##########################################################################################################
+
+##################################################################################
+#
+#   OS specific configuration files
+#
+##################################################################################
+
+case $OS  in
+        AIX)
+                ############################      AIX SPECIFIC CONFIG FILES     ###########################
+
+                FILESYSTEM_CONF="/etc/filesystems"                      ; export FILESYSTEM_CONF
+		SHADOW_FILE="/etc/security/passwd"                                               ; export SHADOW_FILE
+                NET_CONF="/etc/rc.net"                                  ; export NET_CONF
+                ORATAB_FILE="/etc/oratab"                               ; export ORATAB_FILE
+                NTP_CONF="/etc/ntp.conf"                                ; export NTP_CONF
+                DNS_SEARCH_CONF="/etc/netsvc.conf"                      ; export DNS_SEARCH_CONF
+                PROFILE_FILE="/etc/profile"                             ; export PROFILE_FILE
+		
+        ;;
+
+        Linux)
+                ############################  LINUX SPECIFIC CONFIG FILES ###########################
+
+                FILESYSTEM_CONF="/etc/fstab"                           ; export FILESYSTEM_CONF
+                SHADOW_FILE="/etc/shadow"                                               ; export SHADOW_FILE
+		SYSLOG_FILE="/var/log/messages"                              ; export SYSLOG_FILE	
+		NTP_CONF="/etc/ntp.conf"                               ; export NTP_CONF
+                DNS_SEARCH_CONF="/etc/nsswitch.conf"                   ; export DNS_SEARCH_CONF
+                ULIMIT_CONF_FILE="/etc/security/limits.conf"           ; export ULIMIT_CONF_FILE
+                NETPATH="/etc/sysconfig/network-scripts"               ; export NETPATH
+                INTERFACES_LIST="/proc/net/dev"                        ; export INTERFACES_LIST
+                ORATAB_FILE="/etc/oratab"                              ; export ORATAB_FILE
+                PROFILE_FILE="/etc/profile"                            ; export PROFILE_FILE
+                MEMINFO_FILE="/proc/meminfo"                           ; export MEMINFO_FILE
+                CPUINFO_FILE="/proc/cpuinfo"                           ; export CPUINFO_FILE
+
+        ;;
+
+        SunOS)
+                ############################  SOLARIS SPECIFIC CONFIG FILES ###########################
+
+                FILESYSTEM_CONF="/etc/mnttab"                          ; export FILESYSTEM_CONF
+                ORATAB_FILE="/var/opt/oracle/oratab"                   ; export ORATAB_FILE
+		SYSLOG_FILE="/var/adm/messages"                              ; export SYSLOG_FILE	
+                NET_CONF="/etc/rc2.d/S72nddconfig"                     ; export NET_CONF
+                KERNEL_CONF="/etc/system"                              ; export KERNEL_CONF
+                DNS_SEARCH_CONF="/etc/nsswitch.conf"                   ; export DNS_SEARCH_CONF
+                NTP_CONF="/etc/inet/ntp.conf"                          ; export NTP_CONF
+                PROJECT_FILE="/etc/project"                            ; export PROJECT_FILE
+                PROFILE_FILE="/etc/profile"                            ; export PROFILE_FILE
+                SHADOW_FILE="/etc/shadow"                                               ; export SHADOW_FILE
+        ;;
+
+        HP-UX)
+                ############################     HP-UX SPECIFIC CONFIG FILES    ###########################
+
+                FILESYSTEM_CONF="/etc/fstab"                           ; export FILESYSTEM_CONF
+                SHADOW_FILE="/etc/shadow"                              ; export SHADOW_FILE
+                NTP_CONF="/etc/ntp.conf"                               ; export NTP_CONF
+		SYSLOG_FILE="/var/adm/syslog/syslog.log"	       ; export SYSLOG_FILE
+        ;;
+esac
+
+##########################################################################################################
+
+##################################################################################
+#
+#  Format display values
+#
+##################################################################################
+
+
+
+LINE="      ___________________________________________________________________________________________________________________________________"
+LLINE="___________________________________________________________________________________________________________________________________"
+export LINE
+export LLINE
+
+BOLD_F="\033[1m"                                                        ; export BOLD_F
+RED_F="\033[1;31m"                                                      ; export RED_F
+GREEN_F="\033[1;32m"                                                    ; export GREEN_F
+YELLOW_F="\033[33m"                                                     ; export YELLOW_F
+MAGENTA_F="\033[35m"                                                    ; export MAGENTA_F
+CYAN_F="\033[1;36m"                                                     ; export CYAN_F
+NORM="\033[0m"                                                          ; export NORM
+
